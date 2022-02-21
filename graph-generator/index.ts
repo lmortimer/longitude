@@ -11,14 +11,19 @@ const inputTree = JSON.parse(readFileSync('tree.json', 'utf-8'));
  */
 const clusters = JSON.parse(readFileSync('clusters.json', 'utf-8'));
 
+
+
 function clusterForNodeName(name: string) {
     // default to cluster 0
     let cluster = '0';
 
-    clusters.forEach((clusterItem) => {
-        if (name.startsWith(clusterItem.path) || name === clusterItem.path.substr(0, clusterItem.path.length - 1)) {
-            cluster = clusterItem.key;
-        }
+    clusters.forEach((clusterItem: any) => {
+        clusterItem.paths.forEach((clusterPath: string) => {
+            if (name.startsWith(clusterPath) || name === clusterPath.substring(0, clusterItem.paths.length - 1)) {
+                cluster = clusterItem.key;
+            }
+        })
+
     });
 
     return cluster;
@@ -89,7 +94,7 @@ interimGraph.nodes().forEach((node, i) => {
     }
 });
 
-forceAtlas2.assign(interimGraph, 40);
+forceAtlas2.assign(interimGraph, 2);
 
 /*
  *  2. Re-write Graphology graph JSON to the data structure we need to render.
