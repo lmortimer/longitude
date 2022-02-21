@@ -1,0 +1,21 @@
+{
+  "name": "graph-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild index.ts --bundle --platform=node --outfile=bin/app.js",
+    "run": "node bin/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.14.23",
+    "graphology": "^0.23.0",
+    "graphology-layout": "^0.4.1",
+    "graphology-layout-forceatlas2": "^0.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7"
+  }
+}
