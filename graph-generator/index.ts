@@ -41,8 +41,8 @@ function addDirectoryToGraph(parentDirectoryNode) {
             interimGraph.addNode(childNode.name, {
                 label: childNode.name,
                 key: childNode.name,
-                tag: 'Tool',
-                URL: 'http://isthisit.nz',
+                tag: 'List',
+                URL: '',
                 cluster: clusterForNodeName(childNode.name),
                 score: interimGraph.getNodeAttribute(parentDirectoryNode.name, 'score') - 0.1,
                 fileType: 'file',
@@ -55,8 +55,8 @@ function addDirectoryToGraph(parentDirectoryNode) {
                 label: childNode.name,
                 key: childNode.name,
                 fileType: 'directory',
-                tag: 'Tool',
-                URL: 'http://isthisit.nz',
+                tag: 'List',
+                URL: '',
                 cluster: clusterForNodeName(childNode.name),
                 score: interimGraph.getNodeAttribute(parentDirectoryNode.name, 'score') - 0.1,
             });
@@ -72,10 +72,10 @@ interimGraph.addNode('.', {
     label: '.',
     key: '.',
     fileType: 'directory',
-    tag: 'Tool',
-    URL: 'http://isthisit.nz',
+    tag: 'List',
+    URL: '',
     cluster: 0,
-    score: 100,
+    score: 10,
 });
 
 addDirectoryToGraph(inputTree[0]);
@@ -94,7 +94,7 @@ interimGraph.nodes().forEach((node, i) => {
     }
 });
 
-forceAtlas2.assign(interimGraph, 2);
+forceAtlas2.assign(interimGraph, 50);
 
 /*
  *  2. Re-write Graphology graph JSON to the data structure we need to render.
