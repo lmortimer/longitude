@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import Graph from 'graphology';
 import forceAtlas2 from 'graphology-layout-forceatlas2';
-import { Dataset } from "types";
+import { Dataset, NodeData } from 'types';
 
 const inputTree = JSON.parse(readFileSync('tree.json', 'utf-8'));
 
@@ -11,7 +11,20 @@ const inputTree = JSON.parse(readFileSync('tree.json', 'utf-8'));
  */
 const clusters = JSON.parse(readFileSync('clusters.json', 'utf-8'));
 
+type TreeCommandNode = TreeCommandFileNode | TreeCommandDirectoryNode;
 
+type TreeCommandFileNode = {
+    type: "file";
+    name: string;
+}
+
+type TreeCommandDirectoryNode = {
+    type: "directory";
+    name: string;
+    contents: Array<TreeCommandNode>;
+}
+
+// todo jsondecoder
 
 function clusterForNodeName(name: string) {
     // default to cluster 0
@@ -19,7 +32,7 @@ function clusterForNodeName(name: string) {
 
     clusters.forEach((clusterItem: any) => {
         clusterItem.paths.forEach((clusterPath: string) => {
-            if (name.startsWith(clusterPath) || name === clusterPath.substring(0, clusterItem.paths.length - 1)) {
+            if (name.startsWith(clusterPath)) {
                 cluster = clusterItem.key;
             }
         })
@@ -35,7 +48,7 @@ function clusterForNodeName(name: string) {
 
 const interimGraph = new Graph();
 
-function addDirectoryToGraph(parentDirectoryNode) {
+function addDirectoryToGraph(parentDirectoryNode: TreeCommandDirectoryNode) {
     parentDirectoryNode.contents.map((childNode) => {
         if (childNode.type === 'file') {
             interimGraph.addNode(childNode.name, {
@@ -104,7 +117,7 @@ const serialisedGraphologyGraph = interimGraph.export();
 
 let exportGraph: Dataset = {
     nodes: serialisedGraphologyGraph.nodes.map((node) => {
-        return node.attributes;
+        return node.attributes as NodeData; // we generate the graph so know the type matches
     }),
     edges: serialisedGraphologyGraph.edges.map((edge) => {
         return [edge.source, edge.target];
