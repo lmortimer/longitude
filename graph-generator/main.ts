@@ -2,45 +2,15 @@ import { readFileSync, writeFileSync } from 'fs';
 import Graph from 'graphology';
 import forceAtlas2 from 'graphology-layout-forceatlas2';
 import { Dataset, NodeData } from 'types';
+import { loadTree, TreeCommandDirectoryNode } from 'src/tree';
+import { loadClusters, clusterForNodeName } from 'src/cluster';
 
-const inputTree = JSON.parse(readFileSync('tree.json', 'utf-8'));
 
 /*
  * Clusters match on string startswith with the path
  * Clusters paths must be more specific later in the list so that the "last one wins".
  */
-const clusters = JSON.parse(readFileSync('clusters.json', 'utf-8'));
-
-type TreeCommandNode = TreeCommandFileNode | TreeCommandDirectoryNode;
-
-type TreeCommandFileNode = {
-    type: "file";
-    name: string;
-}
-
-type TreeCommandDirectoryNode = {
-    type: "directory";
-    name: string;
-    contents: Array<TreeCommandNode>;
-}
-
-// todo jsondecoder
-
-function clusterForNodeName(name: string) {
-    // default to cluster 0
-    let cluster = '0';
-
-    clusters.forEach((clusterItem: any) => {
-        clusterItem.paths.forEach((clusterPath: string) => {
-            if (name.startsWith(clusterPath)) {
-                cluster = clusterItem.key;
-            }
-        })
-
-    });
-
-    return cluster;
-}
+const clusters = loadClusters('clusters.json');
 
 /**
  *  1. Generate the Graphology Graph
@@ -56,7 +26,7 @@ function addDirectoryToGraph(parentDirectoryNode: TreeCommandDirectoryNode) {
                 key: childNode.name,
                 tag: 'List',
                 URL: '',
-                cluster: clusterForNodeName(childNode.name),
+                cluster: clusterForNodeName(childNode.name, clusters),
                 score: interimGraph.getNodeAttribute(parentDirectoryNode.name, 'score') - 0.1,
                 fileType: 'file',
             });
@@ -70,7 +40,7 @@ function addDirectoryToGraph(parentDirectoryNode: TreeCommandDirectoryNode) {
                 fileType: 'directory',
                 tag: 'List',
                 URL: '',
-                cluster: clusterForNodeName(childNode.name),
+                cluster: clusterForNodeName(childNode.name, clusters),
                 score: interimGraph.getNodeAttribute(parentDirectoryNode.name, 'score') - 0.1,
             });
             interimGraph.addEdge(parentDirectoryNode.name, childNode.name);
@@ -90,6 +60,8 @@ interimGraph.addNode('.', {
     cluster: 0,
     score: 10,
 });
+
+const inputTree = loadTree('tree.json');
 
 addDirectoryToGraph(inputTree[0]);
 
