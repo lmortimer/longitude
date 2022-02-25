@@ -1,0 +1,5 @@
+[
+  { "key": "0", "color": "#666666", "clusterLabel": "Project", "paths": ["./"] },
+  { "key": "1", "color": "#990000", "clusterLabel": "HTML", "paths": ["./src/Html"] },
+  { "key": "2", "color": "#000099", "clusterLabel": "JSON", "paths": ["./src/Json"] }
+]
