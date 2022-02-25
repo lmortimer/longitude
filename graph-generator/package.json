@@ -2,9 +2,9 @@
   "name": "graph-generator",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "build": "esbuild index.ts --bundle --platform=node --outfile=bin/app.js",
+    "build": "esbuild main.ts --bundle --platform=node --outfile=bin/app.js",
     "run": "node bin/app.js"
   },
   "author": "",
