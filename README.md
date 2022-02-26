@@ -4,7 +4,7 @@ Graph and visualise git repositories.
 The repository is split into two parts:
 
 1. `graph-generator` - Generates the graph using [graphology](https://github.com/graphology/graphology) and writes it to `graph-generator/graph.json`.
-1. `git-visualiser` - Renders the graph in `git-visualiser/public/dataset.json`.
+1. `git-visualiser` - Renders the graph using [sigma.js](https://github.com/jacomyal/sigma.js).
 
 ## Installation
 
