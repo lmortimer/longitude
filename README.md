@@ -4,14 +4,14 @@ Graph and visualise git repositories.
 The repository is split into two parts:
 
 1. `graph-generator` - Generates the graph using [graphology](https://github.com/graphology/graphology) and writes it to `graph-generator/graph.json`.
-1. `git-visualiser` - Renders the graph using [sigma.js](https://github.com/jacomyal/sigma.js).
+1. `visualiser` - Renders the graph using [sigma.js](https://github.com/jacomyal/sigma.js).
 
 ## Installation
 
     cd graph-generator
     npm i
 
-    cd git-visualiser
+    cd visualiser
     npm i
 
 ## Usage
@@ -23,7 +23,7 @@ The graph is structured on directory and file directory structure of the git rep
     tree -fJ > tree.json
     cp tree.json graph-generator/
 
-You can specify clusters in `clusters.json`. When the graph is generated the cluster will be added as an attribute to each node. `git-visualiser` will colour branches of the graph based on this cluster.
+You can specify clusters in `clusters.json`. When the graph is generated the cluster will be added as an attribute to each node. `visualiser` will colour branches of the graph based on this cluster.
 
     cat clusters.json
 
@@ -42,16 +42,16 @@ This writes the file `graph.json`
 ### Visualising the graph
 Copy the graph into the Visualiser
 
-    cp graph-generator/graph.json ../git-visualiser/public/dataset.json
+    cp graph-generator/graph.json ../visualiser/public/dataset.json
 
 Run the visualiser
 
-    cd git-visualiser
+    cd visualiser
     npm run start
 
 ## Build & Deploy
 
-    cd git-visualiser
+    cd visualiser
     npm run build
     cp -r build/ some/other/path
 

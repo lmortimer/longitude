@@ -1,0 +1,1 @@
+visualiser is based on the [demo project](https://github.com/jacomyal/sigma.js/tree/main/demo) provided in SigmaJS. Full credit to the original authors.
