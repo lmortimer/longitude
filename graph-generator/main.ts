@@ -1,8 +1,7 @@
 import { exportForVisualisation } from './src/graph';
-import { readFileSync, writeFileSync } from 'fs';
-import { Dataset, NodeData } from 'types';
-import { loadTree, TreeCommandDirectoryNode } from 'src/tree';
-import { loadClusters, clusterForNodeName } from 'src/cluster';
+import { writeFileSync } from 'fs';
+import { loadTree } from 'src/tree';
+import { loadClusters } from 'src/cluster';
 import { parseTreeCommandOutputToGraph, mutateGraphLayout } from 'src/graph';
 
 
