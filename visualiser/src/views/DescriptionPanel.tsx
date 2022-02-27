@@ -18,9 +18,7 @@ const DescriptionPanel: FC = () => {
           <li>Search requires an exact node match</li> 
         </ul>
       </p>
-      <p>
-        Created by <a href="https://isthisit.nz">Logan</a> using <a href="https://graphology.github.io/">graphology</a> and <a href="https://github.com/jacomyal/sigma.js">sigma.js</a>.
-      </p>
+
     </Panel>
   );
 };
