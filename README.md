@@ -1,5 +1,5 @@
 # Longitude
-Graph and visualise git repositories.
+Graph and visualise git repositories. View the [live demo](https://lmortimer.github.io/longitude/demo/index.html).
 
 The repository is split into two parts:
 
